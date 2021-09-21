@@ -81,6 +81,7 @@ protected $pCloudApp;
 
 public function __construct()
 {
+
     $this->pCloudApp = new App();
     $this->pCloudApp->setAccessToken(config('laravel-pcloud.access_token'));
     $this->pCloudApp->setLocationId(config('laravel-pcloud.location_id'));
@@ -111,6 +112,7 @@ $folderContent = $pcloudFolder->getContent($folderId);
 
 ~~~~
 use Rbaskam\LaravelPCloud\Request;
+
 use Rbaskam\LaravelPCloud\App;
 
 protected $pCloudApp;
