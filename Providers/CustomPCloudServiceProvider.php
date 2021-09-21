@@ -10,7 +10,7 @@ class CustomPCloudServiceProvider extends ServiceProvider
     {
         $this->publishes([
             // Config
-            __DIR__.'/config/laravel-pcloud' =>  config_path('laravel-pcloud'),
-        ], 'config');
+            __DIR__.'/../config/laravel-pcloud.php' => config_path('laravel-pcloud.php'),            
+        ], 'laravel-pcloud');
     }
 }
