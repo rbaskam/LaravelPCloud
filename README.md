@@ -49,6 +49,11 @@ or add the following to `composer.json` file
 }
 ~~~~
 
+~~~~
+php artisan vendor:publish
+Run Rbaskam\LaravelPCloud\Providers\CustomPCloudServiceProvider
+~~~~
+
 ---
 
 ## Initializing the SDK
