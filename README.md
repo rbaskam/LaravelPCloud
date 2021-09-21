@@ -72,9 +72,9 @@ Copy the access_token and the locationid to the .env
 ---
 
 ## Example
-
-use Rbaskam\LaravelPCloud\App;\
-use Rbaskam\LaravelPCloud\File;\
+~~~~
+use Rbaskam\LaravelPCloud\App;
+use Rbaskam\LaravelPCloud\File;
 use Rbaskam\LaravelPCloud\Folder;
 
 protected $pCloudApp;
@@ -112,7 +112,7 @@ $folderContent = $pcloudFolder->getContent($folderId);
 
 ~~~~
 use Rbaskam\LaravelPCloud\Request;\
-use Rbaskam\LaravelPCloud\App;\
+use Rbaskam\LaravelPCloud\App;
 
 protected $pCloudApp;
 
@@ -121,7 +121,7 @@ public function __construct()\
     $this->pCloudApp = new App();\
     $this->pCloudApp->setAccessToken(config('laravel-pcloud.access_token'));\
     $this->pCloudApp->setLocationId(config('laravel-pcloud.location_id'));\
-}\
+}
 
 $method = "userinfo";\
 $params = array();
