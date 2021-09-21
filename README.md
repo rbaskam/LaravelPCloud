@@ -45,26 +45,29 @@ or add the following to `composer.json` file
 
 ~~~~
 "require": {
-  "rbaskam/laravel-pcloud": "1.0.1"
+  "rbaskam/laravel-pcloud": "1.0.6"
 }
 ~~~~
 
 ~~~~
 php artisan vendor:publish
 Run Rbaskam\LaravelPCloud\Providers\CustomPCloudServiceProvider
+.env
+PCLOUD_ACCESS_TOKEN=
+PCLOUD_LOCATION_ID=
 ~~~~
 
 ---
 
-## Initializing the SDK
+## Generate Auth
+Generate Authorize Code, Navigate to below link (Replace CLIENT_ID with your application Client ID)
+https://my.pcloud.com/oauth2/authorize?client_id=CLIENT_ID&response_type=code
 
-The SDK uses an OAuth 2.0 access token to authorize requests to the pCloud API.
-You can obtain a token using the SDK's authorization flow.
-To allow the SDK to do that, find `App Key`, `App secret` and `Redirect URIs` in your application configuration page and add them to `/example/code.php` and `/example/auth.php`.
+After you get the access code and the hostname, next step is to generate Access Token.
+**Before you navigate to below link, make sure to replace Client ID, Secret and Access Code & THE HOST NAME (api.pcloud.com) with what was on the page before
+https://api.pcloud.com/oauth2_token?client_id=WzgD3znP9SH&client_secret=3upWhONM6Bum22xBUHnC9m1dztYk&code=191IZYunTU7Z2qvtrQEz8zJbtN4UUwdnFHVvtks7
 
-Note that `redirect_uri` is optional.
-
-Run `/example/code.php` to get an authorization code and use this code in `/example/auth.php`. This will return `access_token` and `locationid`.
+Copy the access_token and the locationid to the .env
 
 ---
 
@@ -74,16 +77,18 @@ use Rbaskam\LaravelPCloud\App;
 use Rbaskam\LaravelPCloud\File;
 use Rbaskam\LaravelPCloud\Folder;
 
-$access_token = "ACCESS_TOKEN";
-$locationid = 1;
+protected $pCloudApp;
 
-$pCloudApp = new pCloud\App();
-$pCloudApp->setAccessToken($access_token);
-$pCloudApp->setLocationId($locationid);
+public function __construct()
+{
+    $this->pCloudApp = new App();
+    $this->pCloudApp->setAccessToken(config('laravel-pcloud.access_token'));
+    $this->pCloudApp->setLocationId(config('laravel-pcloud.location_id'));
+}
 
 // Create Folder instance
 
-$pcloudFolder = new pCloud\Folder($pCloudApp);
+$pcloudFolder = new Folder($this->pCloudApp);
 
 // Create new folder in root
 
@@ -91,7 +96,7 @@ $folderId = $pcloudFolder->create("New folder");
 
 // Create File instance
 
-$pcloudFile = new pCloud\File($pCloudApp);
+$pcloudFile = new File($this->pCloudApp);
 
 // Upload new file in created folder
 
@@ -105,16 +110,21 @@ $folderContent = $pcloudFolder->getContent($folderId);
 ### Creating custom requests
 
 ~~~~
-$access_token = "";
-$locationid = 1;
+use Rbaskam\LaravelPCloud\Request;
+use Rbaskam\LaravelPCloud\App;
 
-$pCloudApp = new pCloud\App();
-$pCloudApp->setAccessToken($access_token);
-$pCloudApp->setLocationId($locationid);
+protected $pCloudApp;
+
+public function __construct()
+{
+    $this->pCloudApp = new App();
+    $this->pCloudApp->setAccessToken(config('laravel-pcloud.access_token'));
+    $this->pCloudApp->setLocationId(config('laravel-pcloud.location_id'));
+}
 
 $method = "userinfo";
 $params = array();
 
-$request = new pCloud\Request($pCloudApp);
+$request = new Request($this->pCloudApp);
 $response = $request->get($method, $params); // the second argument is optional
 ~~~~
