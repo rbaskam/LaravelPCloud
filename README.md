@@ -73,8 +73,8 @@ Copy the access_token and the locationid to the .env
 
 ## Example
 
-use Rbaskam\LaravelPCloud\App;
-use Rbaskam\LaravelPCloud\File;
+use Rbaskam\LaravelPCloud\App;\
+use Rbaskam\LaravelPCloud\File;\
 use Rbaskam\LaravelPCloud\Folder;
 
 protected $pCloudApp;
