@@ -14,5 +14,20 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {},
+    "autoload-dev": {
+        "psr-4": {
+            "Rbaskam\\LaravelPCloud\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rbaskam\\LaravelPCloud\\Providers\\CustomPCloudServiceProvider"
+            ]
+        }
+    }
 }
