@@ -81,7 +81,6 @@ protected $pCloudApp;
 
 public function __construct()
 {
-
     $this->pCloudApp = new App();
     $this->pCloudApp->setAccessToken(config('laravel-pcloud.access_token'));
     $this->pCloudApp->setLocationId(config('laravel-pcloud.location_id'));
@@ -111,21 +110,21 @@ $folderContent = $pcloudFolder->getContent($folderId);
 ### Creating custom requests
 
 ~~~~
-use Rbaskam\LaravelPCloud\Request;\
+use Rbaskam\LaravelPCloud\Request;
 use Rbaskam\LaravelPCloud\App;
 
 protected $pCloudApp;
 
-public function __construct()\
-{\
-    $this->pCloudApp = new App();\
-    $this->pCloudApp->setAccessToken(config('laravel-pcloud.access_token'));\
-    $this->pCloudApp->setLocationId(config('laravel-pcloud.location_id'));\
+public function __construct()
+{
+    $this->pCloudApp = new App();
+    $this->pCloudApp->setAccessToken(config('laravel-pcloud.access_token'));
+    $this->pCloudApp->setLocationId(config('laravel-pcloud.location_id'));
 }
 
-$method = "userinfo";\
+$method = "userinfo";
 $params = array();
 
-$request = new Request($this->pCloudApp);\
+$request = new Request($this->pCloudApp);
 $response = $request->get($method, $params); // the second argument is optional
 ~~~~
