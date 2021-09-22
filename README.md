@@ -45,7 +45,7 @@ or add the following to `composer.json` file
 
 ~~~~
 "require": {
-  "rbaskam/laravel-pcloud": "1.0.6"
+  "rbaskam/laravel-pcloud": "^1.0"
 }
 ~~~~
 
