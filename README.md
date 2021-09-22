@@ -65,7 +65,7 @@ https://my.pcloud.com/oauth2/authorize?client_id=CLIENT_ID&response_type=code
 
 After you get the access code and the hostname, next step is to generate Access Token.
 **Before you navigate to below link, make sure to replace Client ID, Secret and Access Code & THE HOST NAME (api.pcloud.com) with what was on the page before
-https://api.pcloud.com/oauth2_token?client_id=WzgD3znP9SH&client_secret=3upWhONM6Bum22xBUHnC9m1dztYk&code=191IZYunTU7Z2qvtrQEz8zJbtN4UUwdnFHVvtks7
+https://api.pcloud.com/oauth2_token?client_id=xxxxxxxxx&client_secret=xxxxxxxxx&code=xxxxxxxxx
 
 Copy the access_token and the locationid to the .env
 
