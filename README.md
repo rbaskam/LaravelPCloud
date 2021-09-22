@@ -105,6 +105,11 @@ $fileMetadata = $pcloudFile->upload("./sample.png", $folderId);
 // Get folder content
 
 $folderContent = $pcloudFolder->getContent($folderId);
+
+// Get file
+
+$pcloudFile = new File($this->pCloudApp);
+$pcloudFile->getLink((int)$fileMetadata->metadata->fileid)
 ~~~~
 
 ### Creating custom requests
