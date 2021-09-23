@@ -4,15 +4,18 @@ namespace Rbaskam\LaravelPCloud;
 
 use InvalidArgumentException;
 
-class Folder {
+class Folder
+{
 
 	private $request;
 
-	function __construct(App $app) {
+	function __construct(App $app)
+	{
 		$this->request = new Request($app);
 	}
 
-	public function getMetadata($folderId) {
+	public function getMetadata($folderId)
+	{
 		if (!is_int($folderId)) {
 			throw new InvalidArgumentException("Invalid folder id");
 		}
@@ -24,68 +27,71 @@ class Folder {
 		return $this->request->get("listfolder", $params);
 	}
 
-    public function search(/*string*/ $path) {
+	public function search(/*string*/$path)
+	{
 
-        $path = pathinfo($path, PATHINFO_DIRNAME);
-        //$path = str_replace(DIRECTORY_SEPARATOR,"\\",$path);
+		$path = pathinfo($path, PATHINFO_DIRNAME);
+		//$path = str_replace(DIRECTORY_SEPARATOR,"\\",$path);
 
-        echo "searching for folder: {$path}".PHP_EOL;
+		echo "searching for folder: {$path}" . PHP_EOL;
 
-        $params = array(
-            "nofiles" => 1,
-            "path" => $path
-        );
+		$params = array(
+			"nofiles" => 1,
+			"path" => $path
+		);
 
-        return $this->request->get("listfolder", $params);
-    }
+		return $this->request->get("listfolder", $params);
+	}
 
-    /**
-     * list files in folder identified by name
-     * (start from the root, match directory name, ..)
-     *
-     * @param int|string $folder
-     * @return array|null
-     */
-    public function listFolder($folder = null) {
+	/**
+	 * list files in folder identified by name
+	 * (start from the root, match directory name, ..)
+	 *
+	 * @param int|string $folder
+	 * @return array|null
+	 */
+	public function listFolder($folder = null)
+	{
 
-        // first compare with each folder in root
-        if(is_null($folder)) {
-            return (array)$this->getContent((int)0);
-        }
+		// first compare with each folder in root
+		if (is_null($folder)) {
+			return (array)$this->getContent((int)0);
+		}
 
-        $extension = (string)pathinfo($folder, PATHINFO_EXTENSION);
-        if(!empty($extension)) {
-            $folder = (string)pathinfo($folder, PATHINFO_DIRNAME);
-        }
-        $path_parts = array_reverse((array)explode(DIRECTORY_SEPARATOR, $folder));
+		$extension = (string)pathinfo($folder, PATHINFO_EXTENSION);
+		if (!empty($extension)) {
+			$folder = (string)pathinfo($folder, PATHINFO_DIRNAME);
+		}
+		$path_parts = array_reverse((array)explode(DIRECTORY_SEPARATOR, $folder));
 
-        $directory = null;
-        $currentFolderId = 0;
-        while(($folderName = array_pop($path_parts))){ /* current directory */
-            $folderItems = (array)$this->getContent((int)$currentFolderId);
+		$directory = null;
+		$currentFolderId = 0;
+		while (($folderName = array_pop($path_parts))) { /* current directory */
+			$folderItems = (array)$this->getContent((int)$currentFolderId);
 
-            foreach($folderItems as $key => $directory) {
+			foreach ($folderItems as $key => $directory) {
 
-                $directory = (array)$directory;
-                if (isset($directory['isfolder']) && (bool)$directory['isfolder'] === true) {
-                    if (!empty($directory['name']) && strncmp($folderName, $directory['name'], strlen($folderName)) === 0) {
-                        $currentFolderId = $directory['folderid'];
-                        break;
-                    }
-                }
-            }
+				$directory = (array)$directory;
+				if (isset($directory['isfolder']) && (bool)$directory['isfolder'] === true) {
+					if (!empty($directory['name']) && strncmp($folderName, $directory['name'], strlen($folderName)) === 0) {
+						$currentFolderId = $directory['folderid'];
+						break;
+					}
+				}
+			}
+		}
 
-        }
-
-        return $directory;
-    }
+		return $directory;
+	}
 
 
-	public function listRoot() {
+	public function listRoot()
+	{
 		return $this->getContent(0);
 	}
 
-	public function getContent($folderId) {
+	public function getContent($folderId)
+	{
 		if (!is_int($folderId)) {
 			throw new InvalidArgumentException("Invalid folder id {$folderId}");
 		}
@@ -94,7 +100,8 @@ class Folder {
 		return is_object($folderMetadata) ? $folderMetadata->metadata->contents : $folderMetadata;
 	}
 
-	public function create($name = "", $parent = 0) {
+	public function create($name = "", $parent = 0)
+	{
 		if (!is_string($name) || strlen($name) < 1) {
 			throw new InvalidArgumentException("Invalid folder name");
 		}
@@ -109,7 +116,8 @@ class Folder {
 		return is_object($response) ? $response->metadata->folderid : $response;
 	}
 
-	public function createfolderifnotexists($name = "", $parent = 0) {
+	public function createfolderifnotexists($name = "", $parent = 0)
+	{
 		if (!is_string($name) || strlen($name) < 1) {
 			throw new InvalidArgumentException("Invalid folder name");
 		}
@@ -124,7 +132,8 @@ class Folder {
 		return is_object($response) ? $response->metadata->folderid : $response;
 	}
 
-	public function rename($folderId, $name) {
+	public function rename($folderId, $name)
+	{
 		if (!is_int($folderId)) {
 			throw new InvalidArgumentException("Invalid folder id");
 		}
@@ -142,7 +151,8 @@ class Folder {
 		return is_object($response) ? $response->metadata->folderid : $response;
 	}
 
-	public function move($folderId, $newParent) {
+	public function move($folderId, $newParent)
+	{
 		if (!is_int($folderId)) {
 			throw new InvalidArgumentException("Invalid folder id");
 		}
@@ -161,7 +171,8 @@ class Folder {
 		return is_object($response) ? $response->metadata->folderid : $response;
 	}
 
-	public function delete($folderId) {
+	public function delete($folderId)
+	{
 		if (!is_int($folderId)) {
 			throw new InvalidArgumentException("Invalid folder id");
 		}
@@ -175,7 +186,8 @@ class Folder {
 		return is_object($response) ? $response->metadata->isdeleted : $response;
 	}
 
-	public function deleteRecursive($folderId) {
+	public function deleteRecursive($folderId)
+	{
 		if (!is_int($folderId)) {
 			throw new InvalidArgumentException("Invalid folder id");
 		}

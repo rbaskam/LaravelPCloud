@@ -4,17 +4,20 @@ namespace Rbaskam\LaravelPCloud;
 
 use InvalidArgumentException;
 
-class File {
+class File
+{
 
 	private $partSize;
 	private $request;
 
-	function __construct(App $app) {
+	function __construct(App $app)
+	{
 		$this->request = new Request($app);
 		$this->partSize = Config::$filePartSize;
 	}
 
-	public function getLink($fileId) {
+	public function getLink($fileId)
+	{
 		if (!is_int($fileId)) {
 			throw new InvalidArgumentException("Invalid file id");
 		}
@@ -25,10 +28,11 @@ class File {
 
 		$response = $this->request->get("getfilelink", $params);
 
-		return is_object($response) ? "https://".$response->hosts[0].$response->path : $response;
+		return is_object($response) ? "https://" . $response->hosts[0] . $response->path : $response;
 	}
 
-	public function download($fileId, $destination = "") {
+	public function download($fileId, $destination = "")
+	{
 		if (!is_int($fileId)) {
 			throw new InvalidArgumentException("Invalid file id");
 		}
@@ -36,7 +40,7 @@ class File {
 		$fileLink = $this->getLink($fileId);
 
 		if (!empty($destination)) {
-			$destination = str_replace(array("\\", "/"), DIRECTORY_SEPARATOR, $destination).DIRECTORY_SEPARATOR;
+			$destination = str_replace(array("\\", "/"), DIRECTORY_SEPARATOR, $destination) . DIRECTORY_SEPARATOR;
 		}
 
 		if (!empty($destination) && !is_dir($destination)) {
@@ -45,8 +49,8 @@ class File {
 			}
 		}
 
-        $parts = explode("/", $fileLink);
-        $path = $destination.rawurldecode(end($parts));
+		$parts = explode("/", $fileLink);
+		$path = $destination . rawurldecode(end($parts));
 
 		$source = fopen($fileLink, "rb");
 		$file = fopen("{$path}.download", "wb");
@@ -60,11 +64,13 @@ class File {
 		return rename("{$path}.download", $path);
 	}
 
-	private function createUpload() {
+	private function createUpload()
+	{
 		return $this->request->get("upload_create");
 	}
 
-	private function save($uploadId, $name, $folderId) {
+	private function save($uploadId, $name, $folderId)
+	{
 		$params = array(
 			"uploadid" => $uploadId,
 			"name" => $name,
@@ -74,11 +80,13 @@ class File {
 		return $this->request->get("upload_save", $params);
 	}
 
-	private function write($params, $content) {
+	private function write($params, $content)
+	{
 		return $this->request->put("upload_write", $params, $content);
 	}
 
-	public function upload($path, $folderId = 0, $filename = null) {
+	public function upload($path, $folderId = 0, $filename = null)
+	{
 		if (!file_exists($path) || !is_file($path) || !is_readable($path)) {
 			throw new Exception("Invalid file");
 		}
@@ -108,7 +116,8 @@ class File {
 		return $this->save($upload->uploadid, $filename, $folderId);
 	}
 
-	public function delete($fileId) {
+	public function delete($fileId)
+	{
 		if (!is_int($fileId)) {
 			throw new InvalidArgumentException("Invalid file id");
 		}
@@ -122,7 +131,8 @@ class File {
 		return is_object($response) ? $response->metadata->isdeleted : $response;
 	}
 
-	public function rename($fileId, $name) {
+	public function rename($fileId, $name)
+	{
 		if (!is_int($fileId)) {
 			throw new InvalidArgumentException("Invalid file id");
 		}
@@ -139,7 +149,8 @@ class File {
 		return $this->request->get("renamefile", $params);
 	}
 
-	public function move($fileId, $folderId) {
+	public function move($fileId, $folderId)
+	{
 		if (!is_int($fileId)) {
 			throw new InvalidArgumentException("Invalid file id");
 		}
@@ -156,7 +167,8 @@ class File {
 		return $this->request->get("renamefile", $params);
 	}
 
-	public function copy($fileId, $folderId) {
+	public function copy($fileId, $folderId)
+	{
 		if (!is_int($fileId)) {
 			throw new InvalidArgumentException("Invalid file id");
 		}
@@ -173,7 +185,8 @@ class File {
 		return $this->request->get("copyfile", $params);
 	}
 
-	public function getInfo($fileId) {
+	public function getInfo($fileId)
+	{
 		if (!is_int($fileId)) {
 			throw new InvalidArgumentException("Invalid file id");
 		}

@@ -3,7 +3,7 @@
 namespace Rbaskam\LaravelPCloud\Console;
 
 use Illuminate\Console\Command;
-use Rbaskam\LaravelPCloud\App;
+use Rbaskam\LaravelPCloud\Facades\PCloud;
 
 class CreateAuthorisationTokenCommand extends Command
 {
@@ -18,14 +18,13 @@ class CreateAuthorisationTokenCommand extends Command
     {
         parent::__construct();
 
-        $this->pCloudApp = new App();
-        $this->pCloudApp->setAppKey(config('laravel-pcloud.client_id'));
-        $this->pCloudApp->setAppSecret(config('laravel-pcloud.client_secret'));
+        PCloud::setAppKey(config('laravel-pcloud.client_id'));
+        PCloud::setAppSecret(config('laravel-pcloud.client_secret'));
     }
 
     public function handle()
-    {
-        $codeUrl = $this->pCloudApp->getAuthorizeCodeUrl();
+    {        
+        $codeUrl = PCloud::getAuthorizeCodeUrl();
         $this->newLine();
         $this->newLine();
         $this->info('Click this link! ' . $codeUrl);
@@ -38,7 +37,7 @@ class CreateAuthorisationTokenCommand extends Command
             $locationId = 2;
         }
 
-        $accessDetails = $this->pCloudApp->getTokenFromCode($accessCode,$locationId);
+        $accessDetails = PCloud::getTokenFromCode($accessCode, $locationId);
         $this->info('Copy this to the PCLOUD_ACCESS_TOKEN env! ' . $accessDetails['access_token']);
         $this->info('Copy this to the PCLOUD_LOCATION_ID env! ' . $accessDetails['locationid']);
     }

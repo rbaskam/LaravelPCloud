@@ -30,7 +30,10 @@
         "laravel": {
             "providers": [
                 "Rbaskam\\LaravelPCloud\\Providers\\CustomPCloudServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "PCloud": "JohnDoe\\BlogPackage\\Facades\\App"
+            }
         }
     },
     "require-dev": {
