@@ -32,7 +32,8 @@
                 "Rbaskam\\LaravelPCloud\\Providers\\CustomPCloudServiceProvider"
             ],
             "aliases": {
-                "PCloud": "JohnDoe\\BlogPackage\\Facades\\App"
+                "PCloud": "Rbaskam\\LaravelPCloud\\Facades\\PCloud",
+                "PCloudFolder": "Rbaskam\\LaravelPCloud\\Facades\\PCloudFolder"
             }
         }
     },
