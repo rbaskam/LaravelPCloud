@@ -14,11 +14,14 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
     "autoload-dev": {
         "psr-4": {
             "Rbaskam\\LaravelPCloud\\Tests\\": "tests"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+
     },
     "config": {
         "sort-packages": true
@@ -29,5 +32,9 @@
                 "Rbaskam\\LaravelPCloud\\Providers\\CustomPCloudServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "6.0",
+        "phpunit/phpunit": "^9.5"
     }
 }

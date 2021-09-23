@@ -50,16 +50,24 @@ or add the following to `composer.json` file
 ~~~~
 
 ~~~~
-php artisan vendor:publish
-Run Rbaskam\LaravelPCloud\Providers\CustomPCloudServiceProvider
-.env
-PCLOUD_ACCESS_TOKEN=
-PCLOUD_LOCATION_ID=
+
+php artisan vendor:publish --provider="Rbaskam\LaravelPCloud\Providers\CustomPCloudServiceProvider" --force
+
+//Add the following to your .env
+PCLOUD_CLIENT_ID=[Get this from https://docs.pcloud.com/my_apps/]
+PCLOUD_CLIENT_SECRET=[Get this from https://docs.pcloud.com/my_apps/]
+PCLOUD_ACCESS_TOKEN=[leave blank]
+PCLOUD_LOCATION_ID=[leave blank]
 ~~~~
 
 ---
 
 ## Generate Auth
+
+### Artisan 
+php artisan laravel-pcloud:token
+
+### Manual
 Generate Authorize Code, Navigate to below link (Replace CLIENT_ID with your application Client ID)
 https://my.pcloud.com/oauth2/authorize?client_id=CLIENT_ID&response_type=code
 

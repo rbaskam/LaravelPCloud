@@ -2,54 +2,66 @@
 
 namespace Rbaskam\LaravelPCloud;
 
-class App {
+class App
+{
 	private $appKey;
 	private $appSecret;
 	private $redirect_uri;
 	private $access_token;
 	private $locationid;
 
-	public function setAppKey($appKey) {
+	public function setAppKey($appKey)
+	{
 		$this->appKey = $appKey;
 	}
 
-	public function getAppKey() {
+	public function getAppKey()
+	{
 		return $this->appKey;
 	}
 
-	public function setAppSecret($appSecret) {
+	public function setAppSecret($appSecret)
+	{
 		$this->appSecret = $appSecret;
 	}
 
-	public function getAppSecret() {
+	public function getAppSecret()
+	{
 		return $this->appSecret;
 	}
 
-	public function setRedirectURI($redirect_uri) {
+	public function setRedirectURI($redirect_uri)
+	{
 		$this->redirect_uri = $redirect_uri;
 	}
 
-	public function getRedirectURI() {
+	public function getRedirectURI()
+	{
 		return $this->redirect_uri;
 	}
 
-	public function setAccessToken($access_token) {
+	public function setAccessToken($access_token)
+	{
 		$this->access_token = $access_token;
 	}
 
-	public function getAccessToken() {
+	public function getAccessToken()
+	{
 		return $this->access_token;
 	}
 
-	public function setLocationId($locationid) {
+	public function setLocationId($locationid)
+	{
 		$this->locationid = $locationid;
 	}
 
-	public function getLocationId() {
+	public function getLocationId()
+	{
 		return $this->locationid;
 	}
 
-	public function getAuthorizeCodeUrl() {
+	public function getAuthorizeCodeUrl()
+	{
 		self::validParams(["appKey"]);
 
 		$params = [
@@ -62,10 +74,11 @@ class App {
 			$params["redirect_uri"] = $this->redirect_uri;
 		}
 
-		return "https://my.pcloud.com/oauth2/authorize?".http_build_query($params);
+		return "https://my.pcloud.com/oauth2/authorize?" . http_build_query($params);
 	}
 
-	public function getTokenFromCode($code, $locationid) {
+	public function getTokenFromCode($code, $locationid)
+	{
 		self::validParams(["appKey", "appSecret"]);
 
 		$params = [
@@ -97,7 +110,8 @@ class App {
 		}
 	}
 
-	private function validParams($keys) {
+	private function validParams($keys)
+	{
 		foreach ($keys as $key) {
 			if (!isset($this->$key) || empty($this->$key)) {
 				throw new Exception("\"{$key}\" not found");
