@@ -186,6 +186,25 @@ class Folder
 		return is_object($response) ? $response->metadata->isdeleted : $response;
 	}
 
+	public function deleteIfEmpty($folderId)
+	{
+		if (!is_int($folderId)) {
+			throw new InvalidArgumentException("Invalid folder id");
+		}
+		
+		if (count($this->getContent($folderId)) != 0) {
+			return true;
+		}
+
+		$params = array(
+			"folderid" => $folderId
+		);
+
+		$response = $this->request->get("deletefolder", $params);
+
+		return is_object($response) ? $response->metadata->isdeleted : $response;
+	}
+
 	public function deleteRecursive($folderId)
 	{
 		if (!is_int($folderId)) {
