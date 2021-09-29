@@ -65,7 +65,7 @@ PCLOUD_LOCATION_ID=[leave blank]
 ## Generate Auth
 
 ### Artisan 
-php artisan laravel-pcloud:token
+```php artisan laravel-pcloud:token```
 
 ### Manual
 Generate Authorize Code, Navigate to below link (Replace CLIENT_ID with your application Client ID)
