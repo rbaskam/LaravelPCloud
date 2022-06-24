@@ -91,7 +91,7 @@ class File
 			throw new Exception("Invalid file");
 		}
 
-		$path = str_replace(array("\\", "_"), "/", $path);
+		$path = str_replace(array("\\"), "/", $path);
 		$parts = explode("/", $path);
 
 		if (!$filename) {
