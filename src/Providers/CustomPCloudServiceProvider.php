@@ -2,7 +2,9 @@
 
 namespace LucaF87\LaravelPCloud\Providers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
+use LucaF87\LaravelPCloud\Facades\PCloudAdapter;
 use pCloud\Sdk\App;
 use pCloud\Sdk\Folder;
 use pCloud\Sdk\File;
@@ -28,5 +30,16 @@ class CustomPCloudServiceProvider extends ServiceProvider
         $this->commands([
             \LucaF87\LaravelPCloud\Console\CreateAuthorisationTokenCommand ::class,
         ]);
+
+        Storage::extend('pCloud', function($app, $config) {
+            $client = new App();
+            $client->setAppKey($config['clientId']);
+            $client->setAppSecret($config['clientSecret']);
+            $client->setAccessToken($config['accessToken']);
+            $client->setLocationId($config['locationId']);
+            $adapter = new PCloudAdapter($client, '/');
+
+            return new \League\Flysystem\Filesystem($adapter);
+        });
     }
 }

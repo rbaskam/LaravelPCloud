@@ -54,10 +54,23 @@ or add the following to `composer.json` file
 php artisan vendor:publish --provider="LucaF87\LaravelPCloud\Providers\CustomPCloudServiceProvider" --force
 
 //Add the following to your .env
+
 PCLOUD_CLIENT_ID=[Get this from https://docs.pcloud.com/my_apps/]
 PCLOUD_CLIENT_SECRET=[Get this from https://docs.pcloud.com/my_apps/]
 PCLOUD_ACCESS_TOKEN=[leave blank]
 PCLOUD_LOCATION_ID=[leave blank]
+~~~~
+
+~~~~
+//Add the following to your config/filesystem.php
+
+'pCloud' => [
+    'driver' => 'pCloud',
+    'clientId' => env('PCLOUD_CLIENT_ID'),
+    'clientSecret' => env('PCLOUD_CLIENT_SECRET'),
+    'accessToken' => env('PCLOUD_ACCESS_TOKEN'),
+    'locationId' => env('PCLOUD_LOCATION_ID'),
+],
 ~~~~
 
 ---

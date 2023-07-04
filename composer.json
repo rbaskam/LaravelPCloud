@@ -40,12 +40,12 @@
         }
     },
     "require": {
-        "php": ">=7.2",
+        "php": "^8.1",
         "nette/schema": "^1.2",
         "pcloud/pcloud-php-sdk": "3.*"
     },
     "require-dev": {
-        "orchestra/testbench": "6.0",
+        "orchestra/testbench": "8.*",
         "phpunit/phpunit": "^9.5"
     }
 }
