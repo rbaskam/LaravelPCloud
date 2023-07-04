@@ -38,20 +38,20 @@ In order to use this SDK, you have to register your application in [My applicati
 Install [Composer](http://getcomposer.org/download/).
 
 ```bash
-$ composer require rbaskam/laravel-pcloud
+$ composer require LucaF87/laravel-pcloud
 ```
 
 or add the following to `composer.json` file
 
 ~~~~
 "require": {
-  "rbaskam/laravel-pcloud": "^1.0"
+  "LucaF87/laravel-pcloud": "^1.0"
 }
 ~~~~
 
 ~~~~
 
-php artisan vendor:publish --provider="Rbaskam\LaravelPCloud\Providers\CustomPCloudServiceProvider" --force
+php artisan vendor:publish --provider="LucaF87\LaravelPCloud\Providers\CustomPCloudServiceProvider" --force
 
 //Add the following to your .env
 PCLOUD_CLIENT_ID=[Get this from https://docs.pcloud.com/my_apps/]
@@ -81,9 +81,9 @@ Copy the access_token and the locationid to the .env
 
 ## Example
 ~~~~
-use Rbaskam\LaravelPCloud\App;
-use Rbaskam\LaravelPCloud\File;
-use Rbaskam\LaravelPCloud\Folder;
+use pCloud\Sdk\App;
+use pCloud\Sdk\File;
+use pCloud\Sdk\Folder;
 
 protected $pCloudApp;
 
@@ -123,8 +123,8 @@ $pcloudFile->getLink((int)$fileMetadata->metadata->fileid)
 ### Creating custom requests
 
 ~~~~
-use Rbaskam\LaravelPCloud\Request;
-use Rbaskam\LaravelPCloud\App;
+use pCloud\Sdk\Request;
+use pCloud\Sdk\App;
 
 protected $pCloudApp;
 

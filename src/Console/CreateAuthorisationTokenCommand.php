@@ -1,9 +1,9 @@
 <?php
 
-namespace Rbaskam\LaravelPCloud\Console;
+namespace LucaF87\LaravelPCloud\Console;
 
 use Illuminate\Console\Command;
-use Rbaskam\LaravelPCloud\App;
+use pCloud\Sdk\App;
 
 class CreateAuthorisationTokenCommand extends Command
 {

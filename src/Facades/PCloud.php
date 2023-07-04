@@ -1,6 +1,6 @@
 <?php
 
-namespace Rbaskam\LaravelPCloud\Facades;
+namespace LucaF87\LaravelPCloud\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

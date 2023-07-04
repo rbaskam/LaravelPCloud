@@ -1,6 +1,8 @@
 <?php
 
-namespace Rbaskam\LaravelPCloud;
+namespace LucaF87\LaravelPCloud;
+
+use pCloud\Sdk\Exception;
 
 class Auth {
 

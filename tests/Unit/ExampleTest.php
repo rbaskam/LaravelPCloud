@@ -1,9 +1,9 @@
 <?php
 
-namespace Rbaskam\LaravelPCloud\Tests;
+namespace Unit;
 
+use LucaF87\LaravelPCloud\Providers\CustomPCloudServiceProvider;
 use Orchestra\Testbench\TestCase;
-use Rbaskam\LaravelPCloud\Providers\CustomPCloudServiceProvider;
 
 class ExampleTest extends TestCase
 {

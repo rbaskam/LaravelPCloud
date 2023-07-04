@@ -1,11 +1,11 @@
 <?php
 
-namespace Rbaskam\LaravelPCloud\Providers;
+namespace LucaF87\LaravelPCloud\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Rbaskam\LaravelPCloud\App;
-use Rbaskam\LaravelPCloud\Folder;
-use Rbaskam\LaravelPCloud\File;
+use pCloud\Sdk\App;
+use pCloud\Sdk\Folder;
+use pCloud\Sdk\File;
 
 class CustomPCloudServiceProvider extends ServiceProvider
 {
@@ -26,7 +26,7 @@ class CustomPCloudServiceProvider extends ServiceProvider
         ], 'laravel-pcloud');
 
         $this->commands([
-            \Rbaskam\LaravelPCloud\Console\CreateAuthorisationTokenCommand ::class,
+            \LucaF87\LaravelPCloud\Console\CreateAuthorisationTokenCommand ::class,
         ]);
     }
 }
